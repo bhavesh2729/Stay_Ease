@@ -7,7 +7,7 @@ module.exports.index = async (req, res, next) => {
   try {
     const allListings = await Listing.find({});
 
-    res.render("alllisting.ejs", { allListings });
+    res.render("allListing.ejs", { allListings });
   } catch (err) {
     next(err);
   }
