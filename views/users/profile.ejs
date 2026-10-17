@@ -1,0 +1,201 @@
+
+<%- layout("layouts/boilerplate") %>
+
+<style>
+  .profile-page {
+    min-height: 75vh;
+    padding: 50px 15px;
+    background: linear-gradient(135deg, #f8f9fa, #fff1f2);
+  }
+
+  .profile-card {
+    max-width: 650px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  }
+
+  .profile-header {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+  }
+
+  .profile-avatar {
+    width: 95px;
+    height: 95px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: #dc3545;
+    border-radius: 50%;
+    font-size: 45px;
+    border: 4px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .profile-header h2 {
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .profile-header p {
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .profile-body {
+    padding: 30px;
+  }
+
+  .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 17px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    border: 1px solid #eeeeee;
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-info-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #dc3545;
+    background: #ffe5e8;
+    border-radius: 12px;
+    font-size: 20px;
+  }
+
+  .profile-info small {
+    display: block;
+    color: #777;
+    margin-bottom: 4px;
+  }
+
+  .profile-info strong {
+    color: #212529;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+  }
+
+  .profile-actions .btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 576px) {
+    .profile-page {
+      padding: 25px 10px;
+    }
+
+    .profile-body {
+      padding: 20px 15px;
+    }
+
+    .profile-header {
+      padding: 30px 15px;
+    }
+  }
+</style>
+
+<div class="profile-page">
+  <div class="profile-card">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <i class="fa-solid fa-user"></i>
+      </div>
+
+      <h2>My Profile</h2>
+      <p>Welcome to your StayEase account!</p>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="profile-body">
+
+      <h5 class="fw-bold mb-4">
+        <i class="fa-solid fa-address-card text-danger me-2"></i>
+        Personal Information
+      </h5>
+
+      <!-- Username -->
+      <div class="profile-info">
+        <div class="profile-info-icon">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div>
+          <small>Username</small>
+          <strong>
+            <%= currUser.username %>
+          </strong>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="profile-info">
+        <div class="profile-info-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+
+        <div>
+          <small>Email Address</small>
+          <strong>
+            <%= currUser.email || "Email not available" %>
+          </strong>
+        </div>
+      </div>
+
+      <!-- User ID -->
+      <div class="profile-info">
+        <div class="profile-info-icon">
+          <i class="fa-solid fa-id-card"></i>
+        </div>
+
+        <div>
+          <small>User ID</small>
+          <strong>
+            <%= currUser._id %>
+          </strong>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="profile-actions">
+        <a href="/listing" class="btn btn-danger">
+          <i class="fa-solid fa-house me-2"></i>
+          Back to Home
+        </a>
+
+        <a href="mailto:<%= currUser.email || '' %>" class="btn btn-outline-danger">
+          <i class="fa-solid fa-envelope me-2"></i>
+          Email
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

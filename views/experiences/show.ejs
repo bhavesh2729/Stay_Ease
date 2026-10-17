@@ -1,0 +1,612 @@
+ <escape><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title><%= experience.title %> | StayEase</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+  <style>
+    :root {
+      --navy: #102a43;
+      --teal: #0f766e;
+      --teal-light: #e0f2f1;
+      --orange: #f59e0b;
+      --text: #243b53;
+      --muted: #627d98;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #dff5f0 0, transparent 32%),
+        linear-gradient(135deg, #f8fafc, #eef5f9);
+      min-height: 100vh;
+    }
+
+    .experience-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 35px 22px 70px;
+    }
+
+    /* Back link */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 11px 17px;
+      border-radius: 30px;
+      background: white;
+      border: 1px solid #d9e5ed;
+      box-shadow: 0 5px 18px rgba(16, 42, 67, 0.06);
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      color: white;
+      background: var(--teal);
+      transform: translateX(-4px);
+    }
+
+    /* Heading */
+    .experience-heading {
+      margin: 30px 0 24px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 13px;
+      margin-bottom: 13px;
+      border-radius: 20px;
+      background: #dff5f0;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    .experience-title {
+      color: var(--navy);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .location-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .location-icon {
+      color: #e76f51;
+    }
+
+    /* Main image */
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+      background: #dce8ed;
+      border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(16, 42, 67, 0.15);
+      margin-bottom: 35px;
+    }
+
+    .experience-image {
+      display: block;
+      width: 100%;
+      height: 490px;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .image-wrapper:hover .experience-image {
+      transform: scale(1.035);
+    }
+
+    .image-overlay {
+      position: absolute;
+      inset: 45% 0 0;
+      background: linear-gradient(transparent, rgba(8, 28, 45, 0.58));
+      pointer-events: none;
+    }
+
+    .image-caption {
+      position: absolute;
+      left: 25px;
+      bottom: 23px;
+      color: white;
+      z-index: 1;
+    }
+
+    .image-caption span {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 8px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .no-image {
+      min-height: 300px;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      color: var(--muted);
+      background: linear-gradient(135deg, #dceeea, #e8eef7);
+      border-radius: 25px;
+      margin-bottom: 35px;
+    }
+
+    .no-image i {
+      font-size: 55px;
+      color: var(--teal);
+      margin-bottom: 15px;
+    }
+
+    /* Main layout */
+    .content-section {
+      margin-top: 10px;
+    }
+
+    .section-title {
+      color: var(--navy);
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 17px;
+    }
+
+    .description-card {
+      background: white;
+      padding: 28px;
+      border: 1px solid #e4edf2;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(16, 42, 67, 0.045);
+      margin-bottom: 30px;
+    }
+
+    .description {
+      color: #52677c;
+      font-size: 16px;
+      line-height: 1.95;
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+      margin: 0;
+    }
+
+    /* Detail cards */
+    .info-box {
+      height: 100%;
+      min-height: 115px;
+      padding: 20px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid #e2ebf0;
+      box-shadow: 0 7px 22px rgba(16, 42, 67, 0.045);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .info-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 28px rgba(16, 42, 67, 0.10);
+    }
+
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      margin-bottom: 13px;
+      font-size: 17px;
+    }
+
+    .icon-location {
+      color: #0f766e;
+      background: #dff5f0;
+    }
+
+    .icon-category {
+      color: #7c3aed;
+      background: #ede9fe;
+    }
+
+    .icon-duration {
+      color: #b45309;
+      background: #fef3c7;
+    }
+
+    .info-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .info-value {
+      color: var(--navy);
+      font-size: 16px;
+      font-weight: 750;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    /* Price card */
+    .booking-card {
+      position: sticky;
+      top: 25px;
+      background: white;
+      border: 1px solid #dce9ed;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(16, 42, 67, 0.10);
+    }
+
+    .booking-top {
+      padding: 27px;
+      color: white;
+      background: linear-gradient(135deg, #102a43, #0f766e);
+    }
+
+    .price-label {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: clamp(2rem, 3vw, 2.7rem);
+      font-weight: 850;
+      letter-spacing: -1px;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .price small {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0;
+      opacity: 0.85;
+    }
+
+    .price-note {
+      margin: 12px 0 0;
+      color: #d8f3ee;
+      font-size: 13px;
+    }
+
+    .booking-body {
+      padding: 25px;
+    }
+
+    .booking-detail {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 19px;
+    }
+
+    .booking-detail i {
+      color: var(--teal);
+      margin-top: 4px;
+      width: 18px;
+    }
+
+    .booking-detail strong {
+      display: block;
+      color: var(--navy);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .booking-detail span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .booking-divider {
+      border: 0;
+      border-top: 1px solid #e6edf2;
+      margin: 22px 0;
+    }
+
+    .explore-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 18px;
+      border: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0f766e, #159a8c);
+      color: white;
+      font-size: 15px;
+      font-weight: 750;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(15, 118, 110, 0.22);
+      transition: all 0.3s ease;
+    }
+
+    .explore-btn:hover {
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(15, 118, 110, 0.32);
+      background: linear-gradient(135deg, #102a43, #0f766e);
+    }
+
+    .trust-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 17px 0 0;
+    }
+
+    .trust-note i {
+      color: var(--teal);
+      margin-right: 5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 767px) {
+      .experience-container {
+        padding: 22px 15px 45px;
+      }
+
+      .experience-heading {
+        margin-top: 25px;
+      }
+
+      .experience-title {
+        letter-spacing: -0.5px;
+      }
+
+      .image-wrapper {
+        border-radius: 18px;
+      }
+
+      .experience-image {
+        height: 290px;
+      }
+
+      .image-caption {
+        left: 15px;
+        bottom: 15px;
+      }
+
+      .description-card {
+        padding: 21px;
+      }
+
+      .booking-card {
+        position: static;
+        margin-top: 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container experience-container">
+
+    <!-- Back button -->
+    <a href="/experiences" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Experiences
+    </a>
+
+    <!-- Title -->
+    <header class="experience-heading">
+      <span class="eyebrow">
+        <i class="fa-solid fa-sparkles"></i>
+        Discover something special
+      </span>
+
+      <h1 class="experience-title">
+        <%= experience.title %>
+      </h1>
+
+      <p class="location-line mb-0">
+        <i class="fa-solid fa-location-dot location-icon"></i>
+        <%= experience.location %>
+      </p>
+    </header>
+
+    <!-- Experience image -->
+    <% if (experience.image) { %>
+      <div class="image-wrapper">
+        <img
+          src="<%= experience.image %>"
+          alt="<%= experience.title %>"
+          class="experience-image"
+        >
+
+        <div class="image-overlay"></div>
+
+        <div class="image-caption">
+          <span>
+            <i class="fa-solid fa-compass me-2"></i>
+            Your next memorable experience
+          </span>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="no-image">
+        <div>
+          <i class="fa-regular fa-image"></i>
+          <h4 class="fw-bold">Image coming soon</h4>
+          <p class="mb-0">We're preparing something special for you.</p>
+        </div>
+      </div>
+    <% } %>
+
+    <div class="row g-4 content-section">
+
+      <!-- Left: Description and details -->
+      <section class="col-lg-7">
+
+        <div class="description-card">
+          <h2 class="section-title">
+            <i class="fa-regular fa-heart me-2" style="color: #e76f51;"></i>
+            About this experience
+          </h2>
+
+          <p class="description"><%= experience.description %></p>
+        </div>
+
+        <h2 class="section-title mb-4">
+          <i class="fa-solid fa-circle-info me-2" style="color: #0f766e;"></i>
+          Experience Details
+        </h2>
+
+        <div class="row g-3 mb-4">
+
+          <div class="col-sm-6">
+            <div class="info-box">
+              <div class="info-icon icon-location">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+
+              <p class="info-label">Location</p>
+              <p class="info-value"><%= experience.location %></p>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="info-box">
+              <div class="info-icon icon-category">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+
+              <p class="info-label">Category</p>
+              <p class="info-value"><%= experience.category %></p>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="info-box">
+              <div class="info-icon icon-duration">
+                <i class="fa-regular fa-clock"></i>
+              </div>
+
+              <p class="info-label">Duration</p>
+              <p class="info-value">
+                <%= experience.duration || "Not specified" %>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Right: Price card -->
+      <aside class="col-lg-5">
+        <div class="booking-card">
+
+          <div class="booking-top">
+            <p class="price-label">
+              Make your next memory
+            </p>
+
+            <h2 class="price">
+              ₹<%= experience.price %>
+              <small>/ guest</small>
+            </h2>
+
+            <p class="price-note">
+              <i class="fa-solid fa-star me-1" style="color: #fbbf24;"></i>
+              Discover, explore and enjoy
+            </p>
+          </div>
+
+          <div class="booking-body">
+
+            <div class="booking-detail">
+              <i class="fa-solid fa-compass"></i>
+              <div>
+                <strong>Experience</strong>
+                <span><%= experience.title %></span>
+              </div>
+            </div>
+
+            <div class="booking-detail">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <div>
+                <strong>Destination</strong>
+                <span><%= experience.location %></span>
+              </div>
+            </div>
+
+            <div class="booking-detail">
+              <i class="fa-regular fa-clock"></i>
+              <div>
+                <strong>Duration</strong>
+                <span><%= experience.duration || "Not specified" %></span>
+              </div>
+            </div>
+
+            <hr class="booking-divider">
+
+            <a href="/experiences" class="explore-btn">
+              Explore More Experiences
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <p class="trust-note">
+              <i class="fa-solid fa-shield-halved"></i>
+              Explore your next unforgettable adventure
+            </p>
+
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html></escape>

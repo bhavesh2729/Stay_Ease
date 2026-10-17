@@ -1,0 +1,800 @@
+<escape><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Listing | StayEase</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <style>
+        :root {
+            --navy: #102a43;
+            --teal: #0f766e;
+            --teal-light: #e4f5f0;
+            --orange: #f4a261;
+            --text: #243b53;
+            --muted: #718096;
+            --border: #dce7ec;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, #dff5f0, transparent 35%),
+                linear-gradient(135deg, #f8fbfc, #edf4f7);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .create-navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 18px 7%;
+            background: rgba(255, 255, 255, 0.92);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--navy);
+            font-size: 25px;
+            font-weight: 850;
+            letter-spacing: -0.8px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            color: white;
+            background: linear-gradient(135deg, var(--teal), #159a8c);
+            font-size: 19px;
+            box-shadow: 0 5px 13px #0f766e30;
+        }
+
+        .logo span:last-child {
+            color: var(--teal);
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--navy);
+            background: white;
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none;
+            transition: 0.25s ease;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: var(--navy);
+            border-color: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        /* Main */
+        .create-container {
+            max-width: 940px;
+            margin: 40px auto 65px;
+            padding: 0 20px;
+        }
+
+        .intro {
+            margin-bottom: 27px;
+            text-align: center;
+        }
+
+        .intro-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            margin-bottom: 16px;
+            border-radius: 30px;
+            color: var(--teal);
+            background: var(--teal-light);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .heading {
+            color: var(--navy);
+            font-size: clamp(30px, 4vw, 43px);
+            font-weight: 850;
+            letter-spacing: -1.2px;
+            line-height: 1.2;
+            margin-bottom: 13px;
+        }
+
+        .heading span {
+            color: var(--teal);
+        }
+
+        .subtitle {
+            max-width: 570px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* Form card */
+        .form-card {
+            overflow: hidden;
+            background: white;
+            border: 1px solid #e0e9ee;
+            border-radius: 25px;
+            box-shadow: 0 20px 55px rgba(16, 42, 67, 0.09);
+        }
+
+        .card-top {
+            padding: 24px 34px;
+            color: white;
+            background: linear-gradient(120deg, var(--navy), var(--teal));
+        }
+
+        .card-top h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .card-top h2 i {
+            color: #ffd29d;
+        }
+
+        .card-top p {
+            color: #dbece9;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .form-content {
+            padding: 32px 34px 35px;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 23px;
+            color: var(--navy);
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .section-icon {
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: var(--teal-light);
+            color: var(--teal);
+        }
+
+        .form-group {
+            margin-bottom: 23px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .required {
+            color: #df665a;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 16px;
+            left: 15px;
+            color: #8aa0ae;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        input,
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            background: #fbfdfe;
+            color: var(--navy);
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease,
+                        background 0.2s ease;
+        }
+
+        .input-wrap input {
+            padding-left: 43px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9aabb8;
+        }
+
+        input:focus,
+        textarea:focus {
+            background: white;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.10);
+        }
+
+        textarea {
+            min-height: 145px;
+            resize: vertical;
+            line-height: 1.75;
+        }
+
+        .hint {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* Image upload URL */
+        .image-url-box {
+            padding: 19px;
+            border: 1px dashed #a8cbc4;
+            border-radius: 16px;
+            background: #f5fbf9;
+        }
+
+        .image-url-box .form-group {
+            margin-bottom: 0;
+        }
+
+        .preview-box {
+            display: none;
+            position: relative;
+            margin-top: 17px;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            background: #edf3f5;
+        }
+
+        .preview-box.visible {
+            display: block;
+        }
+
+        .preview-box img {
+            display: block;
+            width: 100%;
+            max-height: 320px;
+            object-fit: cover;
+        }
+
+        .preview-label {
+            padding: 10px 13px;
+            color: var(--teal);
+            background: white;
+            font-size: 12px;
+            font-weight: 750;
+        }
+
+        .preview-error {
+            display: none;
+            margin-top: 10px;
+            color: #bd3d3d;
+            font-size: 12px;
+        }
+
+        /* Bottom action buttons */
+        .form-divider {
+            border: 0;
+            border-top: 1px solid #e9eff2;
+            margin: 30px 0 24px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 13px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 49px;
+            padding: 13px 21px;
+            border: 0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 800;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease,
+                        background 0.25s ease;
+        }
+
+        .submit-btn {
+            flex: 1;
+            color: white;
+            background: linear-gradient(120deg, var(--teal), #159a8c);
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.20);
+        }
+
+        .submit-btn:hover {
+            color: white;
+            background: linear-gradient(120deg, var(--navy), var(--teal));
+            box-shadow: 0 11px 24px rgba(16, 42, 67, 0.20);
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            color: var(--navy);
+            background: #edf2f5;
+            border: 1px solid #e0e8ed;
+        }
+
+        .cancel-btn:hover {
+            color: var(--navy);
+            background: #dfe8ee;
+        }
+
+        .form-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: #496a66;
+            background: #edf8f4;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .form-note i {
+            margin-top: 3px;
+            color: var(--teal);
+        }
+
+        /* Footer */
+        .create-footer {
+            padding: 25px 15px;
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.75);
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .create-footer strong {
+            color: var(--teal);
+        }
+
+        /* Mobile */
+        @media (max-width: 650px) {
+            .create-navbar {
+                padding: 14px 5%;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .logo-icon {
+                width: 37px;
+                height: 37px;
+            }
+
+            .nav-link {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .create-container {
+                margin: 28px auto 42px;
+                padding: 0 14px;
+            }
+
+            .heading {
+                font-size: 31px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+
+            .form-card {
+                border-radius: 19px;
+            }
+
+            .card-top {
+                padding: 21px;
+            }
+
+            .form-content {
+                padding: 24px 19px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="create-navbar">
+        <a href="/listing" class="logo">
+            <span class="logo-icon">
+                <i class="fa-solid fa-house"></i>
+            </span>
+            StayEase
+        </a>
+
+        <a href="/listing" class="nav-link">
+            <i class="fa-solid fa-arrow-left"></i>
+            All Listings
+        </a>
+    </nav>
+
+    <main class="create-container">
+
+        <!-- Page heading -->
+        <header class="intro">
+            <span class="intro-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Become a host
+            </span>
+
+            <h1 class="heading">
+                Create your <span>listing.</span>
+            </h1>
+
+            <p class="subtitle">
+                Have a beautiful place to share? Add your property details
+                and help travellers discover their next favourite stay.
+            </p>
+        </header>
+
+        <!-- Form card -->
+        <section class="form-card">
+
+            <div class="card-top">
+                <h2>
+                    <i class="fa-solid fa-house-circle-check"></i>
+                    Property Information
+                </h2>
+
+                <p>Complete the details below to publish your stay.</p>
+            </div>
+
+            <div class="form-content">
+
+                <form action="/listing" method="POST">
+
+                    <!-- Basic details -->
+                    <h3 class="form-section-title">
+                        <span class="section-icon">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </span>
+                        Basic Details
+                    </h3>
+
+                    <div class="form-group">
+                        <label for="title">
+                            Property Title <span class="required">*</span>
+                        </label>
+
+                        <div class="input-wrap">
+                            <i class="fa-solid fa-house input-icon"></i>
+
+                            <input
+                                id="title"
+                                type="text"
+                                name="listing[title]"
+                                placeholder="e.g. Beautiful Beach House"
+                                required
+                                maxlength="100"
+                            >
+                        </div>
+
+                        <small class="hint">
+                            Choose a clear and attractive name for your property.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Property Description</label>
+
+                        <textarea
+                            id="description"
+                            name="listing[description]"
+                            placeholder="Describe your property, facilities, nearby attractions and what makes it special..."
+                        ></textarea>
+
+                        <small class="hint">
+                            Tell guests what makes your place unique.
+                        </small>
+                    </div>
+
+                    <!-- Image -->
+                    <h3 class="form-section-title">
+                        <span class="section-icon">
+                            <i class="fa-regular fa-image"></i>
+                        </span>
+                        Property Photo
+                    </h3>
+
+                    <div class="image-url-box">
+                        <div class="form-group">
+                            <label for="image">
+                                Property Image URL
+                            </label>
+
+                            <div class="input-wrap">
+                                <i class="fa-solid fa-link input-icon"></i>
+
+                                <input
+                                    id="image"
+                                    type="url"
+                                    name="listing[image][url]"
+                                    placeholder="https://example.com/property.jpg"
+                                >
+                            </div>
+
+                            <small class="hint">
+                                Paste a direct image URL. A preview will appear below.
+                            </small>
+                        </div>
+
+                        <div class="preview-box" id="previewBox">
+                            <img
+                                id="imagePreview"
+                                src=""
+                                alt="Property image preview"
+                            >
+
+                            <div class="preview-label">
+                                <i class="fa-solid fa-circle-check me-1"></i>
+                                Image preview
+                            </div>
+                        </div>
+
+                        <p class="preview-error" id="previewError">
+                            We couldn't load this image. Please check the URL.
+                        </p>
+                    </div>
+
+                    <!-- Price -->
+                    <h3 class="form-section-title" style="margin-top: 30px;">
+                        <span class="section-icon">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </span>
+                        Pricing & Location
+                    </h3>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="price">
+                                Price Per Night (₹) <span class="required">*</span>
+                            </label>
+
+                            <div class="input-wrap">
+                                <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
+
+                                <input
+                                    id="price"
+                                    type="number"
+                                    name="listing[price]"
+                                    placeholder="e.g. 2500"
+                                    min="1"
+                                    step="1"
+                                    required
+                                >
+                            </div>
+
+                            <small class="hint">
+                                Enter the price for one night.
+                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">
+                                City / Location <span class="required">*</span>
+                            </label>
+
+                            <div class="input-wrap">
+                                <i class="fa-solid fa-location-dot input-icon"></i>
+
+                                <input
+                                    id="location"
+                                    type="text"
+                                    name="listing[location]"
+                                    placeholder="e.g. Pune, Maharashtra"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">
+                            Country <span class="required">*</span>
+                        </label>
+
+                        <div class="input-wrap">
+                            <i class="fa-solid fa-globe input-icon"></i>
+
+                            <input
+                                id="country"
+                                type="text"
+                                name="listing[country]"
+                                placeholder="e.g. India"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <hr class="form-divider">
+
+                    <!-- Actions -->
+                    <div class="actions">
+
+                        <button type="submit" class="btn submit-btn">
+                            <i class="fa-solid fa-circle-check"></i>
+                            Create Listing
+                        </button>
+
+                        <a href="/listing" class="btn cancel-btn">
+                            <i class="fa-solid fa-xmark"></i>
+                            Cancel
+                        </a>
+
+                    </div>
+
+                    <div class="form-note">
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <span>
+                            Please check your property details before submitting.
+                            Make sure your image URL is accessible and your nightly
+                            price is correct.
+                        </span>
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="create-footer">
+        <strong>StayEase</strong> · Find your next stay · © 2026
+    </footer>
+
+    <!-- Image preview -->
+    <script>
+        const imageInput = document.getElementById("image");
+        const imagePreview = document.getElementById("imagePreview");
+        const previewBox = document.getElementById("previewBox");
+        const previewError = document.getElementById("previewError");
+
+        let previewTimer;
+
+        imageInput.addEventListener("input", function () {
+            const url = imageInput.value.trim();
+
+            clearTimeout(previewTimer);
+            previewBox.classList.remove("visible");
+            previewError.style.display = "none";
+            imagePreview.removeAttribute("src");
+
+            if (!url) return;
+
+            try {
+                const parsedUrl = new URL(url);
+
+                if (
+                    parsedUrl.protocol !== "https:" &&
+                    parsedUrl.protocol !== "http:"
+                ) {
+                    previewError.style.display = "block";
+                    return;
+                }
+            } catch {
+                return;
+            }
+
+            imagePreview.onload = function () {
+                previewBox.classList.add("visible");
+                previewError.style.display = "none";
+            };
+
+            imagePreview.onerror = function () {
+                previewBox.classList.remove("visible");
+                previewError.style.display = "block";
+            };
+
+            previewTimer = setTimeout(function () {
+                imagePreview.src = url;
+            }, 300);
+        });
+    </script>
+
+</body>
+</html></escape>

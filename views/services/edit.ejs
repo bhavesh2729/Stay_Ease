@@ -1,0 +1,451 @@
+
+<% layout("layouts/boilerplate") %>
+
+<style>
+  .edit-service-page {
+    max-width: 820px;
+    margin: 30px auto 50px;
+    padding: 0 15px;
+    color: #222;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 22px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+  }
+
+  .back-link:hover {
+    color: #e63946;
+  }
+
+  .edit-service-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 22px;
+    padding: 35px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  }
+
+  .edit-header {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 25px;
+  }
+
+  .edit-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 17px;
+    background: #fff0f1;
+    color: #e63946;
+    font-size: 24px;
+  }
+
+  .edit-header h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+  }
+
+  .edit-header p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .edit-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 25px 0 30px;
+  }
+
+  .edit-service-card .form-label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 14px;
+    font-weight: 650;
+    color: #333;
+  }
+
+  .edit-service-card .required {
+    color: #e63946;
+  }
+
+  .edit-service-card .form-control,
+  .edit-service-card .form-select {
+    min-height: 49px;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    background-color: #fff;
+    color: #222;
+    font-size: 14px;
+    box-shadow: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .edit-service-card textarea.form-control {
+    min-height: 130px;
+    resize: vertical;
+    line-height: 1.7;
+  }
+
+  .edit-service-card .form-control::placeholder {
+    color: #aaa;
+  }
+
+  .edit-service-card .form-control:focus,
+  .edit-service-card .form-select:focus {
+    border-color: #e63946;
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.10);
+  }
+
+  .price-input {
+    position: relative;
+  }
+
+  .price-input span {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-weight: 700;
+    z-index: 1;
+  }
+
+  .price-input input {
+    padding-left: 35px !important;
+  }
+
+  .edit-help {
+    margin-top: 8px;
+    color: #888;
+    font-size: 12px;
+  }
+
+  .edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+  }
+
+  .edit-cancel,
+  .edit-save {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 23px;
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 650;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .edit-cancel {
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #444;
+  }
+
+  .edit-cancel:hover {
+    background: #f5f5f5;
+    color: #222;
+  }
+
+  .edit-save {
+    background: #e63946;
+    border: 1px solid #e63946;
+    color: #fff;
+  }
+
+  .edit-save:hover {
+    background: #c92f3b;
+    border-color: #c92f3b;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.2);
+  }
+
+  .edit-note {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+  }
+
+  @media (max-width: 576px) {
+    .edit-service-page {
+      margin-top: 15px;
+      padding: 0 8px;
+    }
+
+    .edit-service-card {
+      padding: 22px 17px;
+      border-radius: 17px;
+    }
+
+    .edit-header {
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .edit-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      font-size: 19px;
+    }
+
+    .edit-header h1 {
+      font-size: 23px;
+    }
+
+    .edit-header p {
+      font-size: 13px;
+    }
+
+    .edit-actions {
+      flex-direction: column-reverse;
+    }
+
+    .edit-cancel,
+    .edit-save {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="edit-service-page">
+
+  <a
+    href="/services/<%= service._id %>"
+    class="back-link"
+  >
+    <i class="fa-solid fa-arrow-left"></i>
+    Back to service
+  </a>
+
+  <div class="edit-service-card">
+
+    <div class="edit-header">
+      <div class="edit-icon">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </div>
+
+      <div>
+        <h1>Edit your service</h1>
+        <p>Update your experience details and keep your listing fresh.</p>
+      </div>
+    </div>
+
+    <hr class="edit-divider">
+
+    <form
+      action="/services/<%= service._id %>?_method=PUT"
+      method="POST"
+    >
+
+      <div class="mb-4">
+        <label for="title" class="form-label">
+          Service title <span class="required">*</span>
+        </label>
+
+        <input
+          id="title"
+          type="text"
+          name="service[title]"
+          class="form-control"
+          placeholder="Enter your service title"
+          value="<%= service.title %>"
+          required
+        >
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="form-label">
+          Description <span class="required">*</span>
+        </label>
+
+        <textarea
+          id="description"
+          name="service[description]"
+          class="form-control"
+          rows="5"
+          placeholder="Describe your experience..."
+          required
+        ><%= service.description %></textarea>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <label for="category" class="form-label">
+            Category <span class="required">*</span>
+          </label>
+
+          <select
+            id="category"
+            name="service[category]"
+            class="form-select"
+            required
+          >
+            <% const categories = [
+              "Adventure", "Food", "Art & Culture", "Nature",
+              "Sports", "Wellness", "Photography", "Other"
+            ]; %>
+
+            <% categories.forEach((category) => { %>
+              <option
+                value="<%= category %>"
+                <%= service.category === category ? "selected" : "" %>
+              >
+                <%= category %>
+              </option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <label for="location" class="form-label">
+            Location <span class="required">*</span>
+          </label>
+
+          <input
+            id="location"
+            type="text"
+            name="service[location]"
+            class="form-control"
+            placeholder="e.g. Pune, Maharashtra"
+            value="<%= service.location %>"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <label for="price" class="form-label">
+            Price (₹) <span class="required">*</span>
+          </label>
+
+          <div class="price-input">
+            <span>₹</span>
+            <input
+              id="price"
+              type="number"
+              name="service[price]"
+              class="form-control"
+              placeholder="Enter price"
+              value="<%= service.price %>"
+              min="0"
+              step="1"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <label for="priceType" class="form-label">
+            Price type <span class="required">*</span>
+          </label>
+
+          <select
+            id="priceType"
+            name="service[priceType]"
+            class="form-select"
+            required
+          >
+            <option
+              value="Per guest"
+              <%= service.priceType === "Per guest" ? "selected" : "" %>
+            >
+              Per guest
+            </option>
+
+            <option
+              value="Per group"
+              <%= service.priceType === "Per group" ? "selected" : "" %>
+            >
+              Per group
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="image" class="form-label">Image URL</label>
+
+        <input
+          id="image"
+          type="url"
+          name="service[image]"
+          class="form-control"
+          placeholder="https://example.com/image.jpg"
+          value="<%= service.image || '' %>"
+        >
+
+        <div class="edit-help">
+          Add a valid image URL for your service.
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="hostName" class="form-label">
+          Host name <span class="required">*</span>
+        </label>
+
+        <input
+          id="hostName"
+          type="text"
+          name="service[hostName]"
+          class="form-control"
+          placeholder="Enter host name"
+          value="<%= service.hostName || '' %>"
+          required
+        >
+      </div>
+
+      <div class="edit-actions">
+        <a
+          href="/services/<%= service._id %>"
+          class="edit-cancel"
+        >
+          Cancel
+        </a>
+
+        <button type="submit" class="edit-save">
+          <i class="fa-solid fa-check"></i>
+          Save Changes
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <p class="edit-note">
+    <i class="fa-solid fa-shield-halved"></i>
+    Review your changes before saving your service.
+  </p>
+
+</div>

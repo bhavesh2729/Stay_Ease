@@ -1,0 +1,280 @@
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold text-danger fs-3" href="/listing">
+      <i class="fa-solid fa-house me-1"></i>
+      StayEase
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+      <!-- Navigation Links -->
+      <ul class="navbar-nav mx-auto gap-lg-3">
+
+        <li class="nav-item">
+          <a class="nav-link active fw-semibold" href="/listing">
+            <i class="fa-solid fa-compass me-1"></i>
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="/experiences">
+            <i class="fa-solid fa-star me-1"></i>
+            Experience
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="/services/">
+            <i class="fa-solid fa-concierge-bell me-1"></i>
+            Services
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- Right Side -->
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0 flex-wrap">
+
+        <!-- Add Your Property -->
+        <a
+          href="/listing/new"
+          class="text-decoration-none text-dark fw-semibold"
+        >
+          <i class="fa-solid fa-house-circle-check me-1"></i>
+          Add your property
+        </a>
+
+        <!-- User Menu -->
+        <div class="dropdown">
+
+          <% if (typeof currUser !== "undefined" && currUser) { %>
+
+            <!-- Logged-in User Button -->
+            <button
+              type="button"
+              class="btn btn-outline-secondary rounded-pill px-3"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              aria-label="User menu"
+            >
+              <i class="fa-regular fa-circle-user fs-5"></i>
+              <i class="fa-solid fa-bars ms-2"></i>
+            </button>
+
+            <!-- Logged-in Dropdown -->
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+
+              <!-- Username -->
+              <li>
+                <span class="dropdown-item-text fw-semibold">
+                  <i class="fa-regular fa-circle-user me-2"></i>
+                  Hello, <%= currUser.username %>
+                </span>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <% if (currUser) { %>
+
+  <!-- My Profile -->
+  <li>
+    <a class="dropdown-item" href="/profile">
+      <i class="fa-solid fa-user me-2"></i>
+      My Profile
+    </a>
+  </li>
+
+<% } %>
+
+              <!-- My Listings -->
+              <li>
+                <a class="dropdown-item" href="/listing">
+                  <i class="fa-solid fa-house me-2"></i>
+                  My Listings
+                </a>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <!-- Logout -->
+              <li>
+                <form action="/logout" method="POST">
+                  <button
+                    type="submit"
+                    class="dropdown-item text-danger"
+                  >
+                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+                    Logout
+                  </button>
+                </form>
+              </li>
+
+            </ul>
+
+          <% } else { %>
+
+            <!-- Login / Register -->
+            <a
+              href="/login"
+              class="btn btn-outline-danger rounded-pill me-2"
+            >
+              Login
+            </a>
+
+            <a
+              href="/register"
+              class="btn btn-danger rounded-pill"
+            >
+              Register
+            </a>
+
+          <% } %>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= SEARCH BAR ================= -->
+
+<div class="container my-4">
+
+  <form action="/listing" method="GET" class="search-bar">
+
+    <!-- Where -->
+    <div class="search-item flex-grow-1">
+      <label for="location">
+        <i class="fa-solid fa-location-dot me-1 text-danger"></i>
+        Where
+      </label>
+
+      <input
+        type="text"
+        id="location"
+        name="location"
+        placeholder="Search destinations"
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="search-divider"></div>
+
+    <!-- Check-in -->
+    <div class="search-item flex-grow-1">
+      <label for="checkin">
+        <i class="fa-regular fa-calendar-days me-1 text-danger"></i>
+        Check-in
+      </label>
+
+      <input
+        type="date"
+        id="checkin"
+        name="checkin"
+        aria-label="Check-in date"
+        required
+      >
+    </div>
+
+    <div class="search-divider"></div>
+
+    <!-- Check-out -->
+    <div class="search-item flex-grow-1">
+      <label for="checkout">
+        <i class="fa-regular fa-calendar-check me-1 text-danger"></i>
+        Check-out
+      </label>
+
+      <input
+        type="date"
+        id="checkout"
+        name="checkout"
+        aria-label="Check-out date"
+        required
+      >
+    </div>
+
+    <div class="search-divider"></div>
+
+    <!-- Guests -->
+    <div class="search-item flex-grow-1">
+      <label for="guests">
+        <i class="fa-solid fa-user-group me-1 text-danger"></i>
+        Guests
+      </label>
+
+      <input
+        type="number"
+        id="guests"
+        name="guests"
+        min="1"
+        max="20"
+        value="1"
+        placeholder="Add guests"
+        required
+      >
+    </div>
+
+    <!-- Search Button -->
+    <button
+      type="submit"
+      class="search-btn"
+      aria-label="Search listings"
+      title="Search stays"
+    >
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+  </form>
+</div>
+
+<!-- ================= DATE VALIDATION ================= -->
+
+<script>
+  const checkin = document.getElementById("checkin");
+  const checkout = document.getElementById("checkout");
+
+  if (checkin && checkout) {
+    const today = new Date();
+
+    const localToday = new Date(
+      today.getTime() - today.getTimezoneOffset() * 60000
+    ).toISOString().split("T")[0];
+
+    checkin.min = localToday;
+    checkout.min = localToday;
+
+    checkin.addEventListener("change", function () {
+      checkout.min = this.value || localToday;
+
+      if (checkout.value && checkout.value <= this.value) {
+        checkout.value = "";
+      }
+    });
+  }
+</script>

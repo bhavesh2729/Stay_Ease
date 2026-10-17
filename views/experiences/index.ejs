@@ -1,0 +1,549 @@
+
+<%- layout("layouts/boilerplate") %>
+
+<title>Explore Experiences | StayEase</title>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  rel="stylesheet"
+>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #fff;
+    color: #222;
+    font-family: Arial, sans-serif;
+  }
+
+  .navbar {
+    padding: 18px 5%;
+    border-bottom: 1px solid #eee;
+    background: white;
+  }
+
+  .brand {
+    color: #ff385c;
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .add-btn {
+    display: inline-block;
+    background: #ff385c;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 18px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .add-btn:hover {
+    background: #e31c5f;
+    color: white;
+  }
+
+  .hero {
+    padding: 55px 5% 30px;
+    background: #fff7f8;
+  }
+
+  .hero h1 {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 750;
+    margin-bottom: 12px;
+  }
+
+  .hero p {
+    color: #666;
+    font-size: 17px;
+  }
+
+  .search-box {
+    max-width: 600px;
+    display: flex;
+    margin-top: 25px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 40px;
+    padding: 7px;
+    box-shadow: 0 3px 12px #0000000d;
+  }
+
+  .search-box input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    padding: 12px 18px;
+    background: transparent;
+  }
+
+  .search-box button {
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: #ff385c;
+    color: white;
+  }
+
+  .category-section {
+    padding: 28px 5% 10px;
+  }
+
+  .category-list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+
+  .category-btn {
+    padding: 10px 17px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background: white;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .category-btn:hover,
+  .category-btn.active {
+    border-color: #222;
+    background: #222;
+    color: white;
+  }
+
+  .experiences-section {
+    padding: 25px 5% 60px;
+  }
+
+  .section-heading {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+  }
+
+  .experience-card {
+    height: 100%;
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+    background: white;
+  }
+
+  .experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px #00000012;
+  }
+
+  .image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #f1f1f1;
+  }
+
+  .experience-image {
+    display: block;
+    width: 100%;
+    height: 235px;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .experience-card:hover .experience-image {
+    transform: scale(1.04);
+  }
+
+  .category-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: white;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .experience-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  .experience-title:hover {
+    color: #ff385c;
+  }
+
+  .experience-location {
+    color: #717171;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+  .experience-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .experience-duration {
+    color: #666;
+    font-size: 13px;
+  }
+
+  .experience-price {
+    font-size: 19px;
+    font-weight: bold;
+  }
+
+  .view-btn {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    margin-top: 15px;
+    border: 1px solid #222;
+    border-radius: 8px;
+    color: #222;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .view-btn:hover {
+    background: #222;
+    color: white;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 70px 20px;
+    background: #fafafa;
+    border-radius: 15px;
+  }
+
+  .empty-state i {
+    font-size: 55px;
+    color: #ff385c;
+  }
+
+  footer {
+    padding: 25px 5%;
+    border-top: 1px solid #eee;
+    color: #717171;
+    text-align: center;
+  }
+
+  @media (max-width: 576px) {
+    .hero {
+      padding-top: 35px;
+    }
+
+    .experience-image {
+      height: 220px;
+    }
+
+    .section-heading {
+      font-size: 23px;
+    }
+
+    .navbar {
+      padding: 15px 4%;
+    }
+
+    .brand {
+      font-size: 22px;
+    }
+
+    .add-btn {
+      padding: 9px 12px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+
+<nav class="navbar d-flex justify-content-between align-items-center">
+  <a href="/experiences" class="brand">
+    <i class="bi bi-house-heart-fill"></i> StayEase
+  </a>
+
+  <a href="/experiences/new" class="add-btn">
+    <i class="bi bi-plus-lg"></i> Add Experience
+  </a>
+</nav>
+
+
+<section class="hero">
+  <h1>Discover unforgettable experiences</h1>
+
+  <p>
+    Explore local culture, food, adventures and unique things to do.
+  </p>
+
+  <form class="search-box" id="searchForm">
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Search by title, location or category..."
+      aria-label="Search experiences"
+    >
+
+    <button type="submit" aria-label="Search">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+</section>
+
+<!-- Category Filters -->
+<section class="category-section">
+  <h5 class="fw-bold">Explore by category</h5>
+
+  <div class="category-list">
+    <button type="button" class="category-btn active" data-category="all">
+      All Experiences
+    </button>
+
+    <button type="button" class="category-btn" data-category="City Tour">
+      <i class="bi bi-buildings"></i> City Tours
+    </button>
+
+    <button type="button" class="category-btn" data-category="Cooking">
+      <i class="bi bi-egg-fried"></i> Cooking
+    </button>
+
+    <button type="button" class="category-btn" data-category="Adventure">
+      <i class="bi bi-compass"></i> Adventure
+    </button>
+
+    <button type="button" class="category-btn" data-category="Photography">
+      <i class="bi bi-camera"></i> Photography
+    </button>
+
+    <button type="button" class="category-btn" data-category="Culture">
+      <i class="bi bi-globe-asia-australia"></i> Culture
+    </button>
+
+    <button type="button" class="category-btn" data-category="Nature">
+      <i class="bi bi-tree"></i> Nature
+    </button>
+
+    <button type="button" class="category-btn" data-category="Other">
+      <i class="bi bi-three-dots"></i> Other
+    </button>
+  </div>
+</section>
+
+<!-- Experiences -->
+<section class="experiences-section">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="section-heading mb-0">Experiences to explore</h2>
+
+    <span class="text-secondary" id="resultCount">
+      <%= allExperiences.length %> experiences
+    </span>
+  </div>
+
+  <% if (allExperiences.length === 0) { %>
+
+    <div class="empty-state">
+      <i class="bi bi-compass"></i>
+
+      <h2 class="mt-3 fw-bold">No Experiences Yet</h2>
+
+      <p class="text-secondary">
+        Be the first to share an amazing experience!
+      </p>
+
+      <a href="/experiences/new" class="add-btn mt-3">
+        <i class="bi bi-plus-lg"></i> Create Experience
+      </a>
+    </div>
+
+  <% } else { %>
+
+    <div class="row g-4" id="experienceList">
+
+      <% allExperiences.forEach((experience) => { %>
+
+        <div
+          class="col-12 col-sm-6 col-lg-4 col-xl-3 experience-item"
+          data-title="<%= experience.title %>"
+          data-location="<%= experience.location %>"
+          data-category="<%= experience.category || 'Other' %>"
+        >
+
+          <div class="experience-card">
+
+            <div class="image-wrapper">
+
+              <% if (experience.image) { %>
+
+                <img
+                  src="<%= experience.image %>"
+                  alt="<%= experience.title %>"
+                  class="experience-image"
+                  loading="lazy"
+                >
+
+              <% } else { %>
+
+                <div class="experience-image d-flex justify-content-center align-items-center">
+                  <i class="bi bi-image fs-1 text-secondary"></i>
+                </div>
+
+              <% } %>
+
+              <span class="category-badge">
+                <%= experience.category || "Experience" %>
+              </span>
+
+            </div>
+
+            <div class="p-3">
+
+              <a
+                href="/experiences/<%= experience._id %>"
+                class="experience-title"
+              >
+                <%= experience.title %>
+              </a>
+
+              <p class="experience-location">
+                <i class="bi bi-geo-alt"></i>
+                <%= experience.location %>
+              </p>
+
+              <p class="experience-description">
+                <%= (experience.description || "").length > 100
+                  ? experience.description.substring(0, 100) + "..."
+                  : experience.description %>
+              </p>
+
+              <p class="experience-duration">
+                <i class="bi bi-clock"></i>
+                <%= experience.duration || "Duration not specified" %>
+              </p>
+
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="experience-price">
+                  ₹<%= Number(experience.price || 0).toLocaleString("en-IN") %>
+                  <small class="fw-normal text-secondary">/ guest</small>
+                </span>
+              </div>
+
+              <a
+                href="/experiences/<%= experience._id %>"
+                class="view-btn"
+              >
+                View Experience
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+
+      <% }) %>
+
+    </div>
+
+    <div class="empty-state mt-4 d-none" id="noResults">
+      <i class="bi bi-search"></i>
+
+      <h3 class="mt-3">No matching experiences</h3>
+
+      <p class="text-secondary">
+        Try another search or select a different category.
+      </p>
+    </div>
+
+  <% } %>
+
+</section>
+
+
+<%- include("../includes/footer.ejs") %>
+
+
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const searchForm = document.getElementById("searchForm");
+  const categoryButtons = document.querySelectorAll(".category-btn");
+  const experienceItems = document.querySelectorAll(".experience-item");
+  const resultCount = document.getElementById("resultCount");
+  const noResults = document.getElementById("noResults");
+
+  let selectedCategory = "all";
+
+  function filterExperiences() {
+    const searchText = searchInput.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    experienceItems.forEach((item) => {
+      const title = (item.dataset.title || "").toLowerCase();
+      const location = (item.dataset.location || "").toLowerCase();
+      const category = (item.dataset.category || "").toLowerCase();
+
+      const matchesSearch =
+        title.includes(searchText) ||
+        location.includes(searchText) ||
+        category.includes(searchText);
+
+      const matchesCategory =
+        selectedCategory === "all" ||
+        category === selectedCategory.toLowerCase();
+
+      const isVisible = matchesSearch && matchesCategory;
+
+      item.classList.toggle("d-none", !isVisible);
+
+      if (isVisible) {
+        visibleCount++;
+      }
+    });
+
+    if (resultCount) {
+      resultCount.textContent = visibleCount + " experiences";
+    }
+
+    if (noResults) {
+      noResults.classList.toggle("d-none", visibleCount !== 0);
+    }
+  }
+
+  searchInput.addEventListener("input", filterExperiences);
+
+  searchForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    filterExperiences();
+  });
+
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      categoryButtons.forEach((btn) => btn.classList.remove("active"));
+
+      button.classList.add("active");
+      selectedCategory = button.dataset.category;
+
+      filterExperiences();
+    });
+  });
+</script>

@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Listing | StayEase</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f8fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            padding: 18px 7%;
+            background: #ffffff;
+            border-bottom: 1px solid #e7edf4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            color: #087f8c;
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo i {
+            margin-right: 7px;
+        }
+
+        .back-link {
+            color: #344054;
+            font-size: 14px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #087f8c;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 820px;
+            margin: 42px auto;
+            padding: 0 20px;
+        }
+
+        /* Heading */
+        .page-heading {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .heading-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #dff5f5;
+            color: #087f8c;
+            border-radius: 20px;
+            font-size: 25px;
+        }
+
+        .eyebrow {
+            color: #087f8c;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 9px;
+        }
+
+        .heading {
+            font-size: clamp(28px, 4vw, 36px);
+            font-weight: 850;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #667085;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: #ffffff;
+            padding: 38px;
+            border: 1px solid #e5ebf3;
+            border-radius: 22px;
+            box-shadow: 0 12px 40px rgba(16, 24, 40, 0.055);
+        }
+
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .form-section-subtitle {
+            color: #98a2b3;
+            font-size: 13px;
+            margin-bottom: 26px;
+        }
+
+        /* Fields */
+        .form-group {
+            margin-bottom: 23px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 750;
+            margin-bottom: 9px;
+            color: #344054;
+        }
+
+        .form-label i {
+            color: #087f8c;
+            width: 20px;
+            margin-right: 4px;
+        }
+
+        .form-control-custom {
+            display: block;
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d9e1ec;
+            border-radius: 11px;
+            background: #ffffff;
+            color: #172033;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control-custom::placeholder {
+            color: #a0a9b8;
+        }
+
+        .form-control-custom:focus {
+            border-color: #087f8c;
+            box-shadow: 0 0 0 4px rgba(8, 127, 140, 0.10);
+        }
+
+        textarea.form-control-custom {
+            min-height: 135px;
+            resize: vertical;
+            line-height: 1.8;
+        }
+
+        .field-hint {
+            display: block;
+            margin-top: 8px;
+            color: #98a2b3;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .required-star {
+            color: #d92d20;
+        }
+
+        /* Image Preview */
+        .image-preview-container {
+            margin-top: 15px;
+            padding: 12px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 14px;
+            background: #f8fafc;
+        }
+
+        .preview-heading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #667085;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .preview-image {
+            display: block;
+            width: 100%;
+            max-height: 270px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .preview-placeholder {
+            padding: 25px 10px;
+            text-align: center;
+            color: #98a2b3;
+            font-size: 13px;
+        }
+
+        .preview-placeholder i {
+            display: block;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* Price Note */
+        .price-note {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: #eaf8f8;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .price-note i {
+            color: #087f8c;
+            margin-top: 3px;
+        }
+
+        .price-note p {
+            color: #45636a;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Buttons */
+        .form-actions {
+            display: flex;
+            gap: 13px;
+            margin-top: 30px;
+        }
+
+        .btn-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 14px 20px;
+            border: 1px solid transparent;
+            border-radius: 11px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 750;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .update-btn {
+            flex: 1;
+            background: #087f8c;
+            color: #ffffff;
+        }
+
+        .update-btn:hover {
+            background: #066670;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(8, 127, 140, 0.2);
+        }
+
+        .cancel-btn {
+            background: #ffffff;
+            color: #475467;
+            border-color: #d9e1ec;
+        }
+
+        .cancel-btn:hover {
+            background: #f2f4f7;
+            color: #172033;
+        }
+
+        .form-footer-note {
+            text-align: center;
+            margin-top: 22px;
+            color: #98a2b3;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .page-footer {
+            padding: 26px 15px;
+            text-align: center;
+            background: #ffffff;
+            border-top: 1px solid #e7edf4;
+            color: #98a2b3;
+            font-size: 13px;
+        }
+
+        .page-footer strong {
+            color: #087f8c;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .navbar-custom {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .back-link {
+                font-size: 12px;
+            }
+
+            .main-container {
+                margin: 28px auto;
+                padding: 0 14px;
+            }
+
+            .form-card {
+                padding: 24px 18px;
+                border-radius: 17px;
+            }
+
+            .heading {
+                font-size: 28px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn-custom {
+                width: 100%;
+            }
+
+            .heading-icon {
+                width: 56px;
+                height: 56px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar-custom">
+        <a href="/listing" class="logo">
+            <i class="fa-solid fa-house"></i>StayEase
+        </a>
+
+        <a href="/listing/<%= listing._id %>" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Property
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+
+        <!-- Heading -->
+        <header class="page-heading">
+            <div class="heading-icon">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+
+            <p class="eyebrow">Manage your property</p>
+
+            <h1 class="heading">Edit Your Listing</h1>
+
+            <p class="subtitle">
+                Update your property information and save your changes.
+            </p>
+        </header>
+
+        <!-- Edit Form -->
+        <section class="form-card">
+
+            <h2 class="form-section-title">Property Details</h2>
+
+            <p class="form-section-subtitle">
+                Fields marked with <span class="required-star">*</span> are required.
+            </p>
+
+            <form
+                action="/listing/<%= listing._id %>?_method=PUT"
+                method="POST"
+            >
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title" class="form-label">
+                        <i class="fa-solid fa-heading"></i>
+                        Listing Title <span class="required-star">*</span>
+                    </label>
+
+                    <input
+                        id="title"
+                        type="text"
+                        class="form-control-custom"
+                        name="listing[title]"
+                        value="<%= listing.title %>"
+                        placeholder="Example: Beautiful Mountain Retreat"
+                        maxlength="100"
+                        required
+                    >
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description" class="form-label">
+                        <i class="fa-solid fa-align-left"></i>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        class="form-control-custom"
+                        name="listing[description]"
+                        placeholder="Describe your property, facilities and special features..."
+                    ><%= listing.description %></textarea>
+
+                    <small class="field-hint">
+                        Tell guests what makes your property special.
+                    </small>
+                </div>
+
+                <!-- Image URL -->
+                <div class="form-group">
+                    <label for="image" class="form-label">
+                        <i class="fa-solid fa-image"></i>
+                        Property Image URL
+                    </label>
+
+                    <input
+                        id="image"
+                        type="url"
+                        class="form-control-custom"
+                        name="listing[image][url]"
+                        value="<%= listing.image && listing.image.url ? listing.image.url : '' %>"
+                        placeholder="https://example.com/property.jpg"
+                    >
+
+                    <small class="field-hint">
+                        Paste a valid image URL. The preview updates automatically.
+                    </small>
+
+                    <div class="image-preview-container">
+                        <p class="preview-heading">
+                            <i class="fa-regular fa-eye"></i>
+                            IMAGE PREVIEW
+                        </p>
+
+                        <img
+                            id="imagePreview"
+                            class="preview-image"
+                            src="<%= listing.image && listing.image.url ? listing.image.url : '' %>"
+                            alt="Property preview"
+                            <% if (!(listing.image && listing.image.url)) { %>
+                                hidden
+                            <% } %>
+                        >
+
+                        <div
+                            id="previewPlaceholder"
+                            class="preview-placeholder"
+                            <% if (listing.image && listing.image.url) { %>
+                                hidden
+                            <% } %>
+                        >
+                            <i class="fa-regular fa-image"></i>
+                            Your property image will appear here.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price -->
+                <div class="form-group">
+                    <label for="price" class="form-label">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                        Price Per Night (₹) <span class="required-star">*</span>
+                    </label>
+
+                    <input
+                        id="price"
+                        type="number"
+                        class="form-control-custom"
+                        name="listing[price]"
+                        value="<%= listing.price %>"
+                        min="1"
+                        step="1"
+                        placeholder="Enter price per night"
+                        required
+                    >
+
+                    <small class="field-hint">
+                        Enter the price guests pay for one night.
+                    </small>
+                </div>
+
+                <div class="price-note">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <p>
+                        <strong>Pricing tip:</strong>
+                        Keep your nightly price accurate so guests can understand
+                        the cost of your property.
+                    </p>
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="location" class="form-label">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Location <span class="required-star">*</span>
+                    </label>
+
+                    <input
+                        id="location"
+                        type="text"
+                        class="form-control-custom"
+                        name="listing[location]"
+                        value="<%= listing.location %>"
+                        placeholder="Example: Pune, Maharashtra"
+                        required
+                    >
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label for="country" class="form-label">
+                        <i class="fa-solid fa-earth-asia"></i>
+                        Country <span class="required-star">*</span>
+                    </label>
+
+                    <input
+                        id="country"
+                        type="text"
+                        class="form-control-custom"
+                        name="listing[country]"
+                        value="<%= listing.country %>"
+                        placeholder="Example: India"
+                        required
+                    >
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+
+                    <button type="submit" class="btn-custom update-btn">
+                        <i class="fa-solid fa-check"></i>
+                        Update Listing
+                    </button>
+
+                    <a
+                        href="/listing/<%= listing._id %>"
+                        class="btn-custom cancel-btn"
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                        Cancel
+                    </a>
+
+                </div>
+
+                <p class="form-footer-note">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Review your details before saving your changes.
+                </p>
+
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <p>
+            <strong>StayEase</strong> &copy; <%= new Date().getFullYear() %>.
+            Discover places. Create memories.
+        </p>
+    </footer>
+
+    <!-- Image Preview Script -->
+    <script>
+        const imageInput = document.getElementById("image");
+        const imagePreview = document.getElementById("imagePreview");
+        const previewPlaceholder = document.getElementById("previewPlaceholder");
+
+        function updateImagePreview() {
+            const url = imageInput.value.trim();
+
+            if (!url) {
+                imagePreview.hidden = true;
+                imagePreview.removeAttribute("src");
+                previewPlaceholder.hidden = false;
+                return;
+            }
+
+            imagePreview.hidden = true;
+            previewPlaceholder.hidden = false;
+            imagePreview.src = url;
+        }
+
+        imageInput.addEventListener("input", updateImagePreview);
+
+        imagePreview.addEventListener("load", () => {
+            imagePreview.hidden = false;
+            previewPlaceholder.hidden = true;
+        });
+
+        imagePreview.addEventListener("error", () => {
+            imagePreview.hidden = true;
+            previewPlaceholder.hidden = false;
+        });
+    </script>
+
+</body>
+</html>

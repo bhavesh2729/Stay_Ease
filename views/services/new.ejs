@@ -1,0 +1,468 @@
+ <%- layout("layouts/boilerplate") %>
+
+<style>
+  .host-page {
+    background: #f7f7f9;
+    min-height: 85vh;
+    padding: 50px 16px 70px;
+  }
+
+  .host-wrapper {
+    max-width: 820px;
+    margin: auto;
+  }
+
+  .host-heading {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .host-icon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffe8ed;
+    color: #ff385c;
+    border-radius: 22px;
+    font-size: 28px;
+  }
+
+  .host-heading h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 800;
+    color: #222;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+  }
+
+  .host-heading p {
+    color: #717171;
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: auto;
+  }
+
+  .host-form-card {
+    background: #fff;
+    border: 1px solid #ededed;
+    border-radius: 22px;
+    padding: 36px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.045);
+  }
+
+  .form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 18px;
+    font-weight: 750;
+    color: #222;
+    margin-bottom: 25px;
+  }
+
+  .section-icon {
+    color: #ff385c;
+    font-size: 19px;
+  }
+
+  .host-form .form-label {
+    display: block;
+    font-weight: 650;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 9px;
+  }
+
+  .required-star {
+    color: #ff385c;
+  }
+
+  .host-form .form-control,
+  .host-form .form-select {
+    min-height: 49px;
+    border: 1px solid #dedede;
+    border-radius: 11px;
+    padding: 12px 14px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .host-form .form-control::placeholder {
+    color: #a0a0a0;
+  }
+
+  .host-form .form-control:focus,
+  .host-form .form-select:focus {
+    border-color: #ff385c;
+    box-shadow: 0 0 0 3px rgba(255, 56, 92, .11);
+  }
+
+  .host-form textarea.form-control {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  .host-form .input-group-text {
+    border: 1px solid #dedede;
+    border-radius: 11px 0 0 11px;
+    padding: 0 16px;
+    font-weight: 700;
+    color: #ff385c;
+  }
+
+  .host-form .input-group .form-control {
+    border-radius: 0 11px 11px 0;
+  }
+
+  .field-hint {
+    color: #888;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 7px;
+  }
+
+  .host-form hr {
+    border-color: #ededed;
+    margin: 30px 0;
+    opacity: 1;
+  }
+
+  .image-preview {
+    display: none;
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: 14px;
+    border: 1px solid #eee;
+  }
+
+  .publish-btn {
+    min-height: 50px;
+    border: none;
+    border-radius: 11px;
+    padding: 13px 24px;
+    background: #ff385c;
+    color: #fff;
+    font-weight: 700;
+    transition: background .2s, transform .2s;
+  }
+
+  .publish-btn:hover {
+    background: #e31c5f;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .cancel-btn {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    padding: 12px 24px;
+    font-weight: 650;
+  }
+
+  .host-note {
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    margin-top: 23px;
+  }
+
+  @media (max-width: 576px) {
+    .host-page {
+      padding: 30px 12px 45px;
+    }
+
+    .host-form-card {
+      padding: 24px 18px;
+      border-radius: 17px;
+    }
+
+    .host-heading h1 {
+      letter-spacing: -.5px;
+    }
+  }
+</style>
+
+<div class="host-page">
+  <div class="host-wrapper">
+
+    <div class="host-heading">
+      <div class="host-icon">
+        <i class="fa-solid fa-handshake-angle"></i>
+      </div>
+
+      <h1>Become a Host</h1>
+
+      <p>
+        Turn your skills into memorable experiences.
+        Share what you love and start offering your services.
+      </p>
+    </div>
+
+    <div class="host-form-card">
+
+      <form action="/services" method="POST"
+            class="host-form" id="hostForm">
+
+        <!-- Service Information -->
+        <h5 class="form-section-title">
+          <i class="fa-solid fa-circle-info section-icon"></i>
+          Service Information
+        </h5>
+
+        <div class="mb-4">
+          <label class="form-label" for="serviceTitle">
+            Service Title <span class="required-star">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="serviceTitle"
+            name="service[title]"
+            class="form-control"
+            placeholder="e.g. Professional Photography Session"
+            minlength="3"
+            maxlength="100"
+            required
+          >
+
+          <div class="field-hint">
+            Give your service a clear and attractive title.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="description">
+            Description <span class="required-star">*</span>
+          </label>
+
+          <textarea
+            id="description"
+            name="service[description]"
+            class="form-control"
+            rows="4"
+            minlength="10"
+            maxlength="2000"
+            placeholder="Describe your service, what is included, and what guests can expect..."
+            required
+          ></textarea>
+
+          <div class="field-hint text-end">
+            <span id="descriptionCount">0</span>/2000 characters
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="category">
+            Category <span class="required-star">*</span>
+          </label>
+
+          <select
+            id="category"
+            name="service[category]"
+            class="form-select"
+            required
+          >
+            <option value="">Choose a category</option>
+            <option value="Photography">Photography</option>
+            <option value="Yoga & Wellness">Yoga & Wellness</option>
+            <option value="Makeup & Beauty">Makeup & Beauty</option>
+            <option value="Fitness">Fitness</option>
+            <option value="Cooking">Cooking</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <hr>
+
+        <!-- Location and Pricing -->
+        <h5 class="form-section-title">
+          <i class="fa-solid fa-location-dot section-icon"></i>
+          Location & Pricing
+        </h5>
+
+        <div class="mb-4">
+          <label class="form-label" for="location">
+            Location <span class="required-star">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="location"
+            name="service[location]"
+            class="form-control"
+            placeholder="e.g. Pune, Maharashtra"
+            maxlength="150"
+            required
+          >
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <label class="form-label" for="price">
+              Price (INR) <span class="required-star">*</span>
+            </label>
+
+            <div class="input-group">
+              <span class="input-group-text">₹</span>
+
+              <input
+                type="number"
+                id="price"
+                name="service[price]"
+                class="form-control"
+                min="1"
+                step="1"
+                placeholder="1500"
+                required
+              >
+            </div>
+
+            <div class="field-hint">
+              Enter the amount in Indian Rupees.
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-4">
+            <label class="form-label" for="priceType">
+              Price Type <span class="required-star">*</span>
+            </label>
+
+            <select
+              id="priceType"
+              name="service[priceType]"
+              class="form-select"
+              required
+            >
+              <option value="Per guest">Per guest</option>
+              <option value="Per group">Per group</option>
+            </select>
+
+            <div class="field-hint">
+              Choose whether the price is per person or group.
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Photos and Host Details -->
+        <h5 class="form-section-title">
+          <i class="fa-solid fa-image section-icon"></i>
+          Photos & Host Details
+        </h5>
+
+        <div class="mb-4">
+          <label class="form-label" for="image">
+            Service Image URL
+          </label>
+
+          <input
+            type="url"
+            id="image"
+            name="service[image]"
+            class="form-control"
+            placeholder="https://example.com/photo.jpg"
+          >
+
+          <div class="field-hint">
+            Optional. Paste a publicly accessible image URL.
+          </div>
+
+          <img
+            id="imagePreview"
+            class="image-preview"
+            alt="Service image preview"
+          >
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="hostName">
+            Your Name <span class="required-star">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="hostName"
+            name="service[hostName]"
+            class="form-control"
+            placeholder="Enter your name"
+            minlength="2"
+            maxlength="100"
+            required
+          >
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+          <button type="submit" class="publish-btn flex-grow-1">
+            <i class="fa-solid fa-paper-plane me-2"></i>
+            Publish Service
+          </button>
+
+          <a href="/services" class="btn btn-outline-dark cancel-btn">
+            <i class="fa-solid fa-arrow-left me-2"></i>
+            Cancel
+          </a>
+        </div>
+
+      </form>
+    </div>
+
+    <p class="host-note">
+      <i class="fa-solid fa-shield-halved me-1"></i>
+      Please provide accurate information about your service.
+    </p>
+
+  </div>
+</div>
+
+<script>
+  // Description character counter
+  const description = document.getElementById("description");
+  const descriptionCount = document.getElementById("descriptionCount");
+
+  description.addEventListener("input", function () {
+    descriptionCount.textContent = this.value.length;
+  });
+
+  // Service image preview
+  const imageInput = document.getElementById("image");
+  const imagePreview = document.getElementById("imagePreview");
+
+  imageInput.addEventListener("input", function () {
+    const url = this.value.trim();
+
+    imagePreview.style.display = "none";
+    imagePreview.removeAttribute("src");
+
+    if (url) {
+      try {
+        const parsedUrl = new URL(url);
+
+        if (parsedUrl.protocol === "https:" || parsedUrl.protocol === "http:") {
+          imagePreview.src = parsedUrl.href;
+        }
+      } catch (error) {
+        // Wait until a valid URL is entered.
+      }
+    }
+  });
+
+  imagePreview.addEventListener("load", function () {
+    this.style.display = "block";
+  });
+
+  imagePreview.addEventListener("error", function () {
+    this.style.display = "none";
+  });
+</script>

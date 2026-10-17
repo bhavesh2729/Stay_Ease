@@ -1,0 +1,719 @@
+
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    :root {
+        --stay-navy: #102a43;
+        --stay-teal: #0f766e;
+        --stay-orange: #f4a261;
+        --stay-muted: #687b8d;
+        --stay-border: #e3ecef;
+        --stay-bg: #f6faf9;
+    }
+
+    .listing-home {
+        max-width: 1550px;
+        margin: auto;
+        padding: 28px 4% 55px;
+        color: var(--stay-navy);
+    }
+
+    /* Hero section */
+    .home-hero {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 25px;
+        padding: clamp(30px, 5vw, 65px);
+        margin-bottom: 43px;
+        border-radius: 30px;
+        background: linear-gradient(120deg, #102a43, #115e59 72%, #159a8c);
+        box-shadow: 0 20px 50px rgba(16, 42, 67, 0.14);
+    }
+
+    .home-hero::before,
+    .home-hero::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .home-hero::before {
+        width: 330px;
+        height: 330px;
+        right: -75px;
+        top: -140px;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .home-hero::after {
+        width: 240px;
+        height: 240px;
+        right: 150px;
+        bottom: -180px;
+        background: rgba(244, 162, 97, 0.20);
+    }
+
+    .hero-content {
+        max-width: 700px;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 15px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 30px;
+        color: #e1fff7;
+        background: rgba(255, 255, 255, 0.10);
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .welcome-heading {
+        max-width: 690px;
+        color: #fff;
+        font-size: clamp(34px, 4.4vw, 58px);
+        line-height: 1.12;
+        font-weight: 850;
+        letter-spacing: -1.7px;
+        margin-bottom: 18px;
+    }
+
+    .welcome-heading span {
+        color: #ffd29d;
+    }
+
+    .welcome-text {
+        max-width: 570px;
+        color: #e1eeef;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 27px;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        padding: 13px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 750;
+        transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .hero-btn-primary {
+        background: #fff;
+        color: var(--stay-navy);
+        border: 1px solid #fff;
+    }
+
+    .hero-btn-primary:hover {
+        color: var(--stay-navy);
+        background: #fff0d9;
+        transform: translateY(-3px);
+    }
+
+    .hero-btn-secondary {
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        background: rgba(255, 255, 255, 0.07);
+    }
+
+    .hero-btn-secondary:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.17);
+        transform: translateY(-3px);
+    }
+
+    .hero-decoration {
+        flex: 0 0 210px;
+        display: grid;
+        place-items: center;
+        width: 210px;
+        height: 210px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.09);
+        box-shadow: 0 0 0 22px rgba(255, 255, 255, 0.035);
+        color: #ffe0b5;
+        font-size: 88px;
+        transform: rotate(-8deg);
+    }
+
+    /* Section headings */
+    .destination-section {
+        margin-bottom: 48px;
+    }
+
+    .section-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+        color: var(--stay-navy);
+        font-size: clamp(19px, 2.2vw, 25px);
+        font-weight: 800;
+        letter-spacing: -0.45px;
+        margin: 0 0 7px;
+    }
+
+    .section-heading p {
+        color: var(--stay-muted);
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .see-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        color: var(--stay-teal);
+        background: #e7f6f2;
+        border: 1px solid #d2eee6;
+        border-radius: 30px;
+        padding: 10px 15px;
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        transition: all 0.25s ease;
+    }
+
+    .see-all:hover {
+        color: #fff;
+        background: var(--stay-teal);
+        border-color: var(--stay-teal);
+        transform: translateX(3px);
+    }
+
+    /* Listing grid */
+    .stay-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px 20px;
+    }
+
+    .stay-card {
+        display: block;
+        min-width: 0;
+        color: inherit;
+        text-decoration: none;
+        border-radius: 19px;
+        transition: transform 0.28s ease;
+    }
+
+    .stay-card:hover {
+        color: inherit;
+        transform: translateY(-5px);
+    }
+
+    .stay-image-wrap {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        aspect-ratio: 1 / 0.91;
+        border-radius: 19px;
+        background: linear-gradient(135deg, #e1eeeb, #e7edf6);
+        box-shadow: 0 6px 20px rgba(16, 42, 67, 0.07);
+    }
+
+    .stay-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.55s ease;
+    }
+
+    .stay-card:hover .stay-image {
+        transform: scale(1.075);
+    }
+
+    .stay-image-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 45% 0 0;
+        z-index: 0;
+        background: linear-gradient(transparent, rgba(16, 42, 67, 0.18));
+        pointer-events: none;
+    }
+
+    .favourite-badge {
+        position: absolute;
+        z-index: 1;
+        top: 12px;
+        left: 12px;
+        padding: 8px 11px;
+        color: var(--stay-navy);
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 800;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(8px);
+    }
+
+    .heart-icon {
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 12px;
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        color: #fff;
+        background: rgba(16, 42, 67, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        border-radius: 50%;
+        font-size: 24px;
+        line-height: 1;
+        backdrop-filter: blur(5px);
+    }
+
+    .stay-info {
+        padding: 14px 3px 0;
+    }
+
+    .stay-location-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 7px;
+    }
+
+    .stay-location {
+        color: var(--stay-navy);
+        font-size: 14px;
+        font-weight: 800;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .stay-rating {
+        flex-shrink: 0;
+        color: var(--stay-navy);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+        padding-top: 2px;
+    }
+
+    .stay-rating span {
+        color: #e9a23b;
+    }
+
+    .stay-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: #53697d;
+        font-size: 13px;
+        line-height: 1.55;
+        margin-bottom: 6px;
+    }
+
+    .stay-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: #8292a0;
+        font-size: 12px;
+        line-height: 1.55;
+        margin-bottom: 9px;
+    }
+
+    .stay-price {
+        color: var(--stay-navy);
+        font-size: 13px;
+        margin: 10px 0 0;
+    }
+
+    .stay-price strong {
+        font-size: 17px;
+        font-weight: 850;
+    }
+
+    .stay-price span {
+        color: var(--stay-muted);
+        font-size: 12px;
+    }
+
+    /* Empty state */
+    .empty-state {
+        padding: 65px 20px;
+        text-align: center;
+        background: linear-gradient(135deg, #ffffff, #eaf7f3);
+        border: 1px solid #dcece7;
+        border-radius: 24px;
+        box-shadow: 0 12px 35px rgba(16, 42, 67, 0.06);
+    }
+
+    .empty-icon {
+        display: grid;
+        place-items: center;
+        width: 76px;
+        height: 76px;
+        margin: 0 auto 20px;
+        border-radius: 24px;
+        background: #d9f2ea;
+        color: var(--stay-teal);
+        font-size: 32px;
+    }
+
+    .empty-state h2 {
+        color: var(--stay-navy);
+        font-size: 25px;
+        font-weight: 800;
+    }
+
+    .empty-state p {
+        color: var(--stay-muted);
+        margin: 12px 0 24px;
+    }
+
+    .add-listing-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 13px 20px;
+        color: #fff;
+        background: linear-gradient(135deg, #0f766e, #159a8c);
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 750;
+        font-size: 14px;
+        box-shadow: 0 7px 18px rgba(15, 118, 110, 0.20);
+        transition: transform 0.25s ease;
+    }
+
+    .add-listing-btn:hover {
+        color: #fff;
+        transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+        .stay-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .hero-decoration {
+            flex-basis: 155px;
+            width: 155px;
+            height: 155px;
+            font-size: 65px;
+        }
+    }
+
+    @media (max-width: 750px) {
+        .listing-home {
+            padding: 20px 5% 35px;
+        }
+
+        .home-hero {
+            padding: 32px 24px;
+            border-radius: 23px;
+            margin-bottom: 35px;
+        }
+
+        .hero-decoration {
+            display: none;
+        }
+
+        .welcome-heading {
+            font-size: clamp(32px, 7vw, 43px);
+            letter-spacing: -1px;
+        }
+
+        .welcome-text {
+            font-size: 14px;
+        }
+
+        .stay-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px 14px;
+        }
+
+        .stay-image-wrap {
+            aspect-ratio: 1 / 1;
+            border-radius: 15px;
+        }
+
+        .stay-card {
+            border-radius: 15px;
+        }
+
+        .favourite-badge {
+            top: 8px;
+            left: 8px;
+            padding: 6px 8px;
+            font-size: 10px;
+        }
+
+        .heart-icon {
+            top: 7px;
+            right: 7px;
+            width: 31px;
+            height: 31px;
+            font-size: 21px;
+        }
+
+        .section-heading {
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .home-hero {
+            padding: 27px 19px;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+        }
+
+        .hero-btn {
+            width: 100%;
+        }
+
+        .stay-grid {
+            grid-template-columns: 1fr;
+            gap: 27px;
+        }
+
+        .stay-image-wrap {
+            aspect-ratio: 1.12 / 1;
+        }
+
+        .section-heading h2 {
+            font-size: 18px;
+        }
+
+        .see-all {
+            padding: 9px 11px;
+            font-size: 12px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .stay-card,
+        .stay-image,
+        .hero-btn,
+        .see-all,
+        .add-listing-btn {
+            transition: none !important;
+        }
+    }
+</style>
+
+<main class="listing-home">
+
+    <!-- Premium welcome banner -->
+    <section class="home-hero">
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                <i class="fa-solid fa-compass"></i>
+                Your journey starts here
+            </span>
+
+            <h1 class="welcome-heading">
+                Find your next
+                <span>favourite stay.</span>
+            </h1>
+
+            <p class="welcome-text">
+                Discover beautiful homes, unique destinations and unforgettable
+                places. Your next great escape is waiting for you.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#destinations" class="hero-btn hero-btn-primary">
+                    Explore stays
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="/listing/new" class="hero-btn hero-btn-secondary">
+                    <i class="fa-solid fa-plus"></i>
+                    Become a host
+                </a>
+            </div>
+
+        </div>
+
+        <div class="hero-decoration" aria-hidden="true">
+            <i class="fa-solid fa-earth-asia"></i>
+        </div>
+    </section>
+
+    <% if (!allListings || allListings.length === 0) { %>
+
+        <section class="empty-state">
+            <div class="empty-icon">
+                <i class="fa-solid fa-house"></i>
+            </div>
+
+            <h2>Your next adventure starts here</h2>
+
+            <p>
+                No stays have been added yet. Be the first to share a beautiful
+                place with travellers.
+            </p>
+
+            <a href="/listing/new" class="add-listing-btn">
+                <i class="fa-solid fa-plus"></i>
+                Create Your First Listing
+            </a>
+        </section>
+
+    <% } else { %>
+
+        <%
+            const groupedListings = {};
+
+            allListings.forEach((listing) => {
+                const place = listing.location || "Explore stays";
+
+                if (!groupedListings[place]) {
+                    groupedListings[place] = [];
+                }
+
+                groupedListings[place].push(listing);
+            });
+
+            const places = Object.keys(groupedListings);
+        %>
+
+        <div id="destinations">
+
+            <% places.forEach((place) => { %>
+
+                <section class="destination-section">
+
+                    <div class="section-heading">
+                        <div>
+                            <h2>
+                                <i class="fa-solid fa-location-dot me-2"
+                                   style="color: #0f766e;"></i>
+                                Places to stay in <%= place %>
+                            </h2>
+
+                            <p>
+                                Handpicked places and homes for your next getaway
+                            </p>
+                        </div>
+
+                        <a class="see-all" href="/listing">
+                            See all
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="stay-grid">
+
+                        <% groupedListings[place].forEach((listing) => { %>
+
+                            <a
+                                class="stay-card"
+                                href="/listing/<%= listing._id %>"
+                            >
+
+                                <div class="stay-image-wrap">
+
+                                    <img
+                                        class="stay-image"
+                                        src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80' %>"
+                                        alt="<%= listing.title %>"
+                                        loading="lazy"
+                                    >
+
+                                    <span class="favourite-badge">
+                                        <i class="fa-solid fa-check me-1"
+                                           style="color: #0f766e;"></i>
+                                        Guest favourite
+                                    </span>
+
+                                    <span class="heart-icon" aria-hidden="true">
+                                        ♡
+                                    </span>
+
+                                </div>
+
+                                <div class="stay-info">
+
+                                    <div class="stay-location-row">
+                                        <span class="stay-location">
+                                            <%= listing.location || "Popular destination" %><% if (listing.country) { %>, <%= listing.country %><% } %>
+                                        </span>
+
+                                        <span class="stay-rating">
+                                            <span>★</span> New
+                                        </span>
+                                    </div>
+
+                                    <p class="stay-title">
+                                        <%= listing.title %>
+                                    </p>
+
+                                    <% if (listing.description) { %>
+                                        <p class="stay-description">
+                                            <%= listing.description %>
+                                        </p>
+                                    <% } %>
+
+                                    <p class="stay-price">
+                                        <strong>
+                                            ₹<%= Number(listing.price || 0).toLocaleString("en-IN") %>
+                                        </strong>
+                                        <span> / night</span>
+                                    </p>
+
+                                </div>
+
+                            </a>
+
+                        <% }) %>
+
+                    </div>
+
+                </section>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+</main>
+
+<!-- Footer include -->
+<%- include("./includes/footer.ejs") %>
