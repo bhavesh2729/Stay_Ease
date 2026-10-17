@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 
 const app = express();
-const PORT = process.env.PORT || 1452;
+const port = process.env.PORT || 1452;
 
 // ================= ROUTERS =================
 const userRouter = require("./routes/user");
@@ -37,10 +37,6 @@ app.set("views", path.join(__dirname, "views"));
 app.use(methodOverride("_method"));
 
 // ================= SESSION SETUP =================
-if (!process.env.SECRET && !process.env.SESSION_SECRET) {
-  throw new Error("SECRET or SESSION_SECRET is missing");
-}
-
 app.use(
   session({
     name: "connect.sid",
@@ -75,6 +71,7 @@ app.use((req, res, next) => {
 });
 
 // ================= USER ROUTES =================
+// Login, Register, Logout
 app.use("/", userRouter);
 
 // ================= PROFILE ROUTE =================
@@ -124,17 +121,19 @@ app.use((err, req, res, next) => {
 async function main() {
   try {
     if (!process.env.MONGODB_URI) {
-      throw new Error("MONGODB_URI is missing in environment variables");
+      throw new Error("MONGODB_URI is missing in .env file");
     }
 
-    await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 15000,
-    });
+    if (!process.env.SECRET && !process.env.SESSION_SECRET) {
+      throw new Error("SECRET is missing in .env file");
+    }
+
+    await mongoose.connect(process.env.MONGODB_URI);
 
     console.log("MongoDB connected successfully");
 
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server started successfully on port ${PORT}`);
+    app.listen(port, () => {
+      console.log(`Server running at http://localhost:${port}`);
     });
   } catch (err) {
     console.error("Application startup error:", err.message);
